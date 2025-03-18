@@ -1,4 +1,4 @@
-# Learn Elixir using AI (LLM) Only
+# Self Taught Elixir
 
 ## Todo
 
