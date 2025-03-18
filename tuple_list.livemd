@@ -1,0 +1,55 @@
+# Tuple and List
+
+## Basic Tuple
+
+```elixir
+person = {"Aldi", 25, :male}
+IO.inspect(person)
+```
+
+```elixir
+new_person = person # deep copy
+IO.puts("Name: #{elem(new_person, 0)}")
+
+updated_person = put_elem(new_person, 1, 26)
+IO.inspect(updated_person)
+
+# check the person again
+IO.inspect(person)
+```
+
+## Tuple
+
+```elixir
+people = ["aldi", "wildan", "aya", "azzara"]
+IO.puts(people) # concatenated
+IO.inspect(people) # printed with actual data type (list, tuple, etc)
+```
+
+```elixir
+IO.puts(hd(people)) # head
+IO.puts(List.last(people)) # tail
+```
+
+```elixir
+people = ["muhammad" | people]
+IO.inspect(people)
+IO.puts(hd(people))
+
+people = ["ayaazzara" | people]
+IO.inspect(people)
+
+people = tl(people)
+IO.inspect(people)
+
+# concat
+people = people ++ ["ayaazzara"]
+IO.inspect(people)
+IO.inspect(List.last(people))
+
+# remove with --
+# elixir compare each string, if name are doubled, then it will removed one by one
+# this case, only remove aldi once
+people = ["aldi" | people] -- ["aya", "aldi"]
+IO.inspect(people)
+```
