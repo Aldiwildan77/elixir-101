@@ -6,7 +6,7 @@
 - [x] Modules & Functions  
 - [x] Pattern Matching  
 - [x] Tuples & Lists  
-- [ ] Recursion  
+- [x] Recursion  
 - [ ] Pattern Matching (Deeper)  
 - [ ] Pipelines (|>)  
 - [ ] Structs & Maps  
