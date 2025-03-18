@@ -1,0 +1,181 @@
+# Elixir 101
+
+## Basic
+
+```elixir
+# variable
+a = 1
+a
+```
+
+```elixir
+# 255 -> 25.5
+IO.puts(0xff / 10)
+
+# octal, 8 + 1 = 9
+IO.puts(0o11) 
+
+# binary, 4 + 1
+IO.puts(0b0101)
+
+# round, floor, ceil
+IO.puts(round(3.58))
+IO.puts(floor(1.2))
+IO.puts(ceil(3.4))
+
+# is_integer
+IO.puts(is_integer(1))
+IO.puts(is_float(1))
+IO.puts(is_atom(1))
+IO.puts(is_atom(:halo))
+
+IO.puts(:halo) # atom
+
+IO.puts(true and false)
+IO.puts(false and false)
+IO.puts(false or true)
+IO.puts(true or false)
+
+# left side will be processed first
+IO.puts(1 || :ok)
+IO.puts(:ok || 1)
+
+IO.puts("hello " <> "world, ALDI!!")
+```
+
+```elixir
+add = fn a, b -> a + b end
+add.(2, 5)
+```
+
+```elixir
+# high order function
+fnc = fn cb, default -> cb.(default, 2) end
+fnc.(add, 1)
+```
+
+```elixir
+dbx = fn x -> x * 2 end
+```
+
+<!-- livebook:{"reevaluate_automatically":true} -->
+
+```elixir
+# hof over the loop
+Enum.each([
+  add.(2, 1), fnc.(add, fnc.(add, 1))
+], fn x -> IO.puts("Item: #{x}") end)
+```
+
+```elixir
+# with hof for doubling number
+doubled_numbers = for x <- [1, 2, 3], do: dbx.(x)
+IO.inspect(doubled_numbers)
+```
+
+```elixir
+# 0 + doubled numbers from reducer
+total_doubled_tuples = Enum.map_reduce([1,2,3], 0, fn x, acc -> {dbx.(x), x + acc} end)
+{doubled_list, accum} = total_doubled_tuples
+accum
+```
+
+```elixir
+# head and tail
+[h | t] = [10, 9, 8, 7, 6, 5, 4]
+IO.inspect("head: #{h}")
+IO.inspect(t)
+```
+
+```elixir
+defmodule Greeter do
+  def hello(n \\ nil) # default value to set n to nil
+  # def hello(nil), do: hello("") # explicitly
+  def hello("Aldi"), do: "Hello Aldi!"
+  def hello("Paidy"), do: "Oh hey, Paidy!"
+  def hello(n) when n == "", do: "Hola, desconocido!" # using guard clause
+  def hello(n) when is_binary(n) and byte_size(n) > 5, do: "Hola, #{n}!!!!"
+  def hello(_), do: "Halo, who r u?"
+end
+```
+
+```elixir
+name = "Paidy"
+IO.puts(Greeter.hello("Goldi")) # with \r
+IO.puts(Greeter.hello("Aldiwildan"))
+IO.puts(Greeter.hello("Aldi"))
+IO.puts(Greeter.hello()) # nil
+IO.write(Greeter.hello(name)) # no \r
+```
+
+```elixir
+# if else
+
+n = 10
+
+if n > 3 do
+  IO.puts("n is greater than 3")
+end
+
+# odd even
+if rem(add.(1, 10), 10) == 2 do
+  IO.puts("n is even")
+else 
+  IO.puts("n is odd")
+end
+```
+
+```elixir
+# switch case 
+defmodule Number do
+  def check_number(n) do
+    case n do
+      0 -> "Zero"
+      1 -> "One"
+      x when x > 1 -> "Positive number"
+      _ -> "Negative number"
+    end
+  end
+
+  def check(n) do
+    cond do
+      n == 0 -> "Zero"
+      n < 0 -> "Negative Number"
+      n > 1 -> "Positive Number"
+      true -> "Small positive number"
+    end
+  end
+
+  def is_odd(n) do
+    if rem(n, 2) == 1 do 
+      true
+    end
+    false
+  end
+
+  def is_even(n) do
+    if rem(n, 2) == 0 do
+      true
+    end
+    false
+  end
+end
+
+IO.puts(Number.check_number(1))   # "One"
+IO.puts(Number.check_number(-5))  # "Negative number"
+IO.puts(Number.check_number(10))  # "Positive number"
+IO.puts("")
+IO.puts(Number.check(1))
+IO.puts(Number.check(-5))
+IO.puts(Number.check(10))
+IO.puts("")
+IO.puts("is 1 an even number? #{Number.is_even(1)}")
+IO.puts("is 2 an even number? #{Number.is_even(2)}")
+IO.puts("")
+IO.puts("is 1 an odd number? #{Number.is_odd(1)}")
+IO.puts("is 2 an odd number? #{Number.is_odd(2)}")
+```
+
+```elixir
+
+```
