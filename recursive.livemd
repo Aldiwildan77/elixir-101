@@ -1,0 +1,74 @@
+# Recursive
+
+## Basic
+
+Remember the rules,
+
+1. No loop for
+2. No loop while
+3. Everything just iterate or recursive
+
+```elixir
+defmodule Counter do
+  def countdown(0), do: IO.puts("Done!")
+  def countdown(n) do
+    IO.puts(n)
+    countdown(n-1)
+  end
+end
+
+Counter.countdown(5)
+```
+
+```elixir
+defmodule Math do
+  def sum([]), do: 0
+  def sum([head | tail]), do: head + sum(tail) # back to line 2
+end
+
+numbers = [1,2,3]
+ws = Math.sum(numbers)
+
+IO.puts(ws) # 6
+IO.puts(Math.sum([4 | numbers]))
+
+# we can use map_reduce bro
+{_, acc} = Enum.map_reduce(numbers, 0, fn num, acc -> {num, num+acc} end)
+IO.puts(acc)
+
+IO.puts(acc === ws) # true haha
+```
+
+```elixir
+defmodule Power do
+  def double([]), do: []
+  def double([head | tail]), do: [head * 2 | double(tail)]
+end
+
+dbs = Power.double([1,2,3])
+IO.inspect(dbs)
+
+# we can use map_reduce bro
+{numbers_doubled, acc} = Enum.map_reduce(numbers, 0, fn num, acc -> {num * 2, num+acc} end)
+IO.inspect(numbers_doubled)
+
+IO.puts(length(dbs) === length(numbers_doubled))
+
+# using high order function
+pow = fn x, p -> x * p end
+{numbers_doubled_pow, _} = Enum.map_reduce(numbers, 0, fn num, acc -> {pow.(num, 2), num+acc} end)
+IO.inspect(numbers_doubled_pow)
+
+IO.puts(length(dbs) === length(numbers_doubled_pow))
+```
+
+```elixir
+defmodule Tupler do
+  def count(tuple), do: count(tuple, 0)
+  def count(tuple, count) when tuple_size(tuple) == count, do: count
+  def count(tuple, count), do: count(tuple, count+1)
+end
+
+IO.puts(Tupler.count({:halo, :ok, :paidy}))
+IO.puts(Tupler.count(Tuple.insert_at({:halo, :ok, :paidy}, 3, :d)))
+```

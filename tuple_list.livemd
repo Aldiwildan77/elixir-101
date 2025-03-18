@@ -53,3 +53,63 @@ IO.inspect(List.last(people))
 people = ["aldi" | people] -- ["aya", "aldi"]
 IO.inspect(people)
 ```
+
+## With Pattern Matching
+
+```elixir
+{status, message} = {:ok, "Success"}
+IO.puts(status)
+IO.puts(message)
+```
+
+```elixir
+{a, b} = {:error}
+# expected to be error
+```
+
+```elixir
+# tuple matching
+defmodule Response do
+  def handle_response({:ok, msg}), do: "Success: #{msg}"
+  def handle_response({:error, msg}), do: "Error: #{msg}"
+end
+
+IO.puts(Response.handle_response({:ok, "All good"}))
+# "Success: All good"
+
+IO.puts(Response.handle_response({:error, "Something went wrong"}))
+# "Error: Something went wrong"
+```
+
+```elixir
+[head | tail] = [1,2,3,4,5]
+IO.puts(head)
+IO.inspect(tail)
+```
+
+```elixir
+[1, 2, x] = [1, 2]  # error bolo, the length must be the same
+```
+
+```elixir
+[1, 2, x] = [1, 2, "aldi"]
+IO.puts(x)  # aldi
+```
+
+```elixir
+defmodule ListMatcher do
+  def process([first, second | _]), do: "First #{first}, Second #{second}"
+  def process([]), do: "Empty!"
+  def process(), do: nil # returned, without visual output hahaha
+end
+
+IO.puts(ListMatcher.process([10, 30, 50]))
+IO.puts(ListMatcher.process([]))
+IO.puts(ListMatcher.process())
+```
+
+```elixir
+{status, [first | _]} = {:ok, [1, 3, 5]}
+IO.puts(status)
+IO.puts(first)
+```
