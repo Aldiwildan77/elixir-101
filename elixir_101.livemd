@@ -2,11 +2,15 @@
 
 ## Basic
 
+<!-- livebook:{"reevaluate_automatically":true} -->
+
 ```elixir
 # variable
 a = 1
 a
 ```
+
+<!-- livebook:{"reevaluate_automatically":true} -->
 
 ```elixir
 # 255 -> 25.5
@@ -43,16 +47,22 @@ IO.puts(:ok || 1)
 IO.puts("hello " <> "world, ALDI!!")
 ```
 
+<!-- livebook:{"reevaluate_automatically":true} -->
+
 ```elixir
 add = fn a, b -> a + b end
 add.(2, 5)
 ```
+
+<!-- livebook:{"reevaluate_automatically":true} -->
 
 ```elixir
 # high order function
 fnc = fn cb, default -> cb.(default, 2) end
 fnc.(add, 1)
 ```
+
+<!-- livebook:{"reevaluate_automatically":true} -->
 
 ```elixir
 dbx = fn x -> x * 2 end
@@ -67,11 +77,15 @@ Enum.each([
 ], fn x -> IO.puts("Item: #{x}") end)
 ```
 
+<!-- livebook:{"reevaluate_automatically":true} -->
+
 ```elixir
 # with hof for doubling number
 doubled_numbers = for x <- [1, 2, 3], do: dbx.(x)
 IO.inspect(doubled_numbers)
 ```
+
+<!-- livebook:{"reevaluate_automatically":true} -->
 
 ```elixir
 # 0 + doubled numbers from reducer
@@ -80,12 +94,16 @@ total_doubled_tuples = Enum.map_reduce([1,2,3], 0, fn x, acc -> {dbx.(x), x + ac
 accum
 ```
 
+<!-- livebook:{"reevaluate_automatically":true} -->
+
 ```elixir
 # head and tail
 [h | t] = [10, 9, 8, 7, 6, 5, 4]
 IO.inspect("head: #{h}")
 IO.inspect(t)
 ```
+
+<!-- livebook:{"reevaluate_automatically":true} -->
 
 ```elixir
 defmodule Greeter do
@@ -99,6 +117,8 @@ defmodule Greeter do
 end
 ```
 
+<!-- livebook:{"reevaluate_automatically":true} -->
+
 ```elixir
 name = "Paidy"
 IO.puts(Greeter.hello("Goldi")) # with \r
@@ -107,6 +127,8 @@ IO.puts(Greeter.hello("Aldi"))
 IO.puts(Greeter.hello()) # nil
 IO.write(Greeter.hello(name)) # no \r
 ```
+
+<!-- livebook:{"reevaluate_automatically":true} -->
 
 ```elixir
 # if else
@@ -124,6 +146,8 @@ else
   IO.puts("n is odd")
 end
 ```
+
+<!-- livebook:{"reevaluate_automatically":true} -->
 
 ```elixir
 # switch case 
@@ -174,8 +198,4 @@ IO.puts("is 2 an even number? #{Number.is_even(2)}")
 IO.puts("")
 IO.puts("is 1 an odd number? #{Number.is_odd(1)}")
 IO.puts("is 2 an odd number? #{Number.is_odd(2)}")
-```
-
-```elixir
-
 ```
